@@ -1,0 +1,165 @@
+name: circom
+run-name: ${{ github.actor }} is building a circom circuit
+on:
+  push:
+    paths:
+      - '.github/workflows/zeto.yaml'
+
+defaults:
+  run:
+    working-directory: ./
+jobs:
+  circom-build-circuit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: install circom
+        run: |
+          pwd
+          curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh -s -- -y
+          git clone https://github.com/iden3/circom.git
+          cd circom
+          cargo build --release
+          cargo install --path circom
+      - name: run circom
+        run: circom --help
+      - name: install snarkjs
+        run: npm install -g snarkjs@latest
+      - name: install zeto
+        run: |
+          git clone https://github.com/victoryeo/zeto.git
+          ls -al
+          cd zeto
+          cd zkp/circuits
+          npm install
+          cd ..
+          circom circuits/anon_enc_nullifier.circom --output ./js/lib --sym --wasm
+          circom circuits/anon_enc.circom --output ./js/lib --sym --wasm
+          circom circuits/anon_nullifier.circom --output ./js/lib --sym --wasm
+          circom circuits/anon.circom --output ./js/lib --sym --wasm
+          circom circuits/check-nullifiers.circom --output ./js/lib --sym --wasm
+          circom circuits/nf_anon_nullifier.circom --output ./js/lib --sym --wasm
+          circom circuits/nf_anon.circom --output ./js/lib --sym --wasm
+      - name: create folder
+        run: mkdir -p ./zeto/proving-keys
+      - name: current folder
+        run: pwd
+      - name: list files
+        run: ls -la
+      - name: download ptau
+        run: |
+          cd zeto
+          cd proving-keys
+          wget -nv https://storage.googleapis.com/zkevm/ptau/powersOfTau28_hez_final_12.ptau
+          wget -nv https://storage.googleapis.com/zkevm/ptau/powersOfTau28_hez_final_13.ptau
+          wget -nv https://storage.googleapis.com/zkevm/ptau/powersOfTau28_hez_final_16.ptau
+          wget -nv https://storage.googleapis.com/zkevm/ptau/powersOfTau28_hez_final_11.ptau
+          wget -nv https://storage.googleapis.com/zkevm/ptau/powersOfTau28_hez_final_15.ptau
+      - name: generate R1CS circuit format
+        run: |
+          cd zeto
+          cd zkp/
+          pwd
+          ls -la
+          ls circuits -la
+          circom circuits/anon_enc_nullifier.circom --output ../proving-keys --r1cs
+          circom circuits/anon_enc.circom --output ../proving-keys --r1cs
+          circom circuits/anon_nullifier.circom --output ../proving-keys --r1cs
+          circom circuits/anon.circom --output ../proving-keys --r1cs
+          circom circuits/check-nullifiers.circom --output ../proving-keys --r1cs
+          circom circuits/nf_anon_nullifier.circom --output ../proving-keys --r1cs
+          circom circuits/nf_anon.circom --output ../proving-keys --r1cs
+          ls ../proving-keys -la
+      - name: generate proving keys
+        run: |
+          cd zeto
+          cd zkp/
+          snarkjs groth16 setup ../proving-keys/anon.r1cs ../proving-keys/powersOfTau28_hez_final_12.ptau ../proving-keys/anon.zkey
+          snarkjs groth16 setup ../proving-keys/anon_enc.r1cs ../proving-keys/powersOfTau28_hez_final_13.ptau ../proving-keys/anon_enc.zkey
+          snarkjs groth16 setup ../proving-keys/anon_nullifier.r1cs ../proving-keys/powersOfTau28_hez_final_16.ptau ../proving-keys/anon_nullifier.zkey
+          snarkjs groth16 setup ../proving-keys/anon_enc_nullifier.r1cs ../proving-keys/powersOfTau28_hez_final_16.ptau ../proving-keys/anon_enc_nullifier.zkey
+          snarkjs groth16 setup ../proving-keys/nf_anon.r1cs ../proving-keys/powersOfTau28_hez_final_11.ptau ../proving-keys/nf_anon.zkey
+          snarkjs groth16 setup ../proving-keys/nf_anon_nullifier.r1cs ../proving-keys/powersOfTau28_hez_final_15.ptau ../proving-keys/nf_anon_nullifier.zkey
+      - name: per-circuit set up ceremony on proving keys
+        run: |
+          cd zeto
+          cd zkp/
+          snarkjs zkey contribute ../proving-keys/anon.zkey ../proving-keys/anon_new.zkey --name="contribution" -v -e="random entropy"
+          snarkjs zkey contribute ../proving-keys/anon_enc.zkey ../proving-keys/anon_enc_new.zkey --name="contribution" -v -e="random entropy"
+          snarkjs zkey contribute ../proving-keys/anon_nullifier.zkey ../proving-keys/anon_nullifier_new.zkey --name="contribution" -v -e="random entropy"
+          snarkjs zkey contribute ../proving-keys/anon_enc_nullifier.zkey ../proving-keys/anon_enc_nullifier_new.zkey --name="contribution" -v -e="random entropy"
+          snarkjs zkey contribute ../proving-keys/nf_anon.zkey ../proving-keys/nf_anon_new.zkey --name="contribution" -v -e="random entropy"
+          snarkjs zkey contribute ../proving-keys/nf_anon_nullifier.zkey ../proving-keys/nf_anon_nullifier_new.zkey --name="contribution" -v -e="random entropy"
+      - name: generate verfication keys
+        run: |
+          cd zeto
+          cd zkp/
+          snarkjs zkey export verificationkey ../proving-keys/anon_new.zkey ../proving-keys/anon-vkey.json
+          snarkjs zkey export verificationkey ../proving-keys/anon_enc_new.zkey ../proving-keys/anon_enc-vkey.json
+          snarkjs zkey export verificationkey ../proving-keys/anon_nullifier_new.zkey ../proving-keys/anon_nullifier-vkey.json
+          snarkjs zkey export verificationkey ../proving-keys/anon_enc_nullifier_new.zkey ../proving-keys/anon_enc_nullifier-vkey.json
+          snarkjs zkey export verificationkey ../proving-keys/nf_anon_new.zkey ../proving-keys/nf_anon-vkey.json
+          snarkjs zkey export verificationkey ../proving-keys/nf_anon_nullifier_new.zkey ../proving-keys/nf_anon_nullifier-vkey.json
+      - name: generate solidity verifier library
+        run: |
+          mkdir -p ./zeto/contracts-lib
+          cd zeto
+          cd zkp/
+          snarkjs zkey export solidityverifier ../proving-keys/anon_new.zkey ../contracts-lib/verifier_anon.sol
+          snarkjs zkey export solidityverifier ../proving-keys/anon_enc_new.zkey ../contracts-lib/verifier_anon_enc.sol
+          snarkjs zkey export solidityverifier ../proving-keys/anon_nullifier_new.zkey ../contracts-lib/verifier_anon_nullifier.sol
+          snarkjs zkey export solidityverifier ../proving-keys/anon_enc_nullifier_new.zkey ../contracts-lib/verifier_anon_enc_nullifier.sol
+          snarkjs zkey export solidityverifier ../proving-keys/nf_anon_new.zkey ../contracts-lib/verifier_nf_anon.sol
+          snarkjs zkey export solidityverifier ../proving-keys/nf_anon_nullifier_new.zkey ../contracts-lib/verifier_nf_anon_nullifier.sol
+          ls ../proving-keys -la
+          ls ../contracts-lib -la
+      - name: edit solidity files
+        run: |
+          cd zeto
+          cd contracts-lib
+          sed 's/Groth16Verifier/Groth16Verifier_Anon/' verifier_anon.sol > ../solidity/contracts/lib/verifier_anon.sol
+          sed 's/Groth16Verifier/Groth16Verifier_AnonEnc/' verifier_anon_enc.sol > ../solidity/contracts/lib/verifier_anon_enc.sol
+          sed 's/Groth16Verifier/Groth16Verifier_AnonNullifier/' verifier_anon_nullifier.sol > ../solidity/contracts/lib/verifier_anon_nullifier.sol
+          sed 's/Groth16Verifier/Groth16Verifier_AnonEncNullifier/' verifier_anon_enc_nullifier.sol > ../solidity/contracts/lib/verifier_anon_enc_nullifier.sol
+          sed 's/Groth16Verifier/Groth16Verifier_NFAnon/' verifier_nf_anon.sol > ../solidity/contracts/lib/verifier_nf_anon.sol
+          sed 's/Groth16Verifier/Groth16Verifier_NFAnonNullifier/' verifier_nf_anon_nullifier.sol > ../solidity/contracts/lib/verifier_nf_anon_nullifier.sol
+      - name: list files
+        run: |
+          pwd
+          ls -la 
+          ls -la zeto
+          ls -la zeto/solidity
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: victoryeo/zeto
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha           
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2          
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}          
+      - name: Build and push 
+        uses: docker/build-push-action@v6
+        with:
+          context: ./
+          push: true
+        #  tags: victoryeo/zeto:latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          file: Dockerfile.zeto
+          no-cache: true
+
