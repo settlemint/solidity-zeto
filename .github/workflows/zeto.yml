@@ -1,9 +1,9 @@
 name: circom
 run-name: ${{ github.actor }} is building a circom circuit
 on:
-  [ push ]
-  #  paths:
-  #    - '.github/workflows/zeto.yaml'
+  push:
+    paths:
+      - '.github/workflows/zeto.yaml'
 
 permissions:
   actions: write
