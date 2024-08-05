@@ -1,9 +1,9 @@
 name: circom
 run-name: ${{ github.actor }} is building a circom circuit
 on:
-   [ push ]
-    #paths:
-      #- '.github/workflows/zeto.yaml'
+  push:
+    paths:
+      - '.github/workflows/zeto.yaml'
 
 defaults:
   run:
@@ -150,6 +150,7 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
+          registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}          
       - name: Build and push 
