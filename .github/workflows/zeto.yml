@@ -1,9 +1,18 @@
 name: circom
-run-name: ${{ github.actor }} is building a circom circuit
+run-name: ${{ github.actor }} is building a zeto smart contract
 on:
+  pull_request:
+    branches:
+      - main
   push:
-    paths:
-      - '.github/workflows/zeto.yaml'
+    branches:
+      - main
+    tags:
+      - "v*"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   actions: write
