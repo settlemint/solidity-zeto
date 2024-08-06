@@ -1,4 +1,4 @@
-name: circom
+name: zeto
 run-name: ${{ github.actor }} is building a zeto smart contract
 on:
   pull_request:
@@ -183,7 +183,6 @@ jobs:
         with:
           context: ./
           push: true
-        #  tags: victoryeo/zeto:latest
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           file: Dockerfile.zeto
