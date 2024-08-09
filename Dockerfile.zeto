@@ -12,16 +12,16 @@ RUN curl -L https://foundry.paradigm.xyz | bash && \
   /usr/local/bin/foundryup
 
 RUN pwd
-RUN ls
+RUN ls -al
 
 WORKDIR /
 
-RUN pwd
-RUN ls
-
 COPY . /usecase
+COPY zeto/solidity/contracts /usecase/contracts
+RUN ls /usecase -al
 
 WORKDIR /usecase
+RUN pwd
 
 USER root
 
