@@ -23,5 +23,9 @@
   "overrides": {
     "@graphprotocol/graph-cli": "0.79.0",
     "@graphprotocol/graph-ts": "0.35.1"
+  },
+  "dependencies": {
+    "@iden3/contracts": "^2.1.2",
+    "@openzeppelin/contracts": "^5.0.2"
   }
 }
