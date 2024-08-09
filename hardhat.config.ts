@@ -5,14 +5,24 @@ import type { HardhatUserConfig } from "hardhat/config";
 
 const config: HardhatUserConfig = {
   solidity: {
-    version: "0.8.24",
-    settings: {
-      viaIR: true,
-      optimizer: {
-        enabled: true,
-        runs: 10_000,
+    compilers: [
+      {
+        version: "0.8.20",
       },
-    },
+      {
+        version: "0.8.24",
+      },
+      {
+        version: "0.8.26",
+        settings: {
+          viaIR: true,
+          optimizer: {
+            enabled: true,
+            runs: 10_000,
+          },
+        },
+      },
+    ],
   },
   networks: {
     hardhat: {},
