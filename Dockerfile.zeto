@@ -11,10 +11,15 @@ ENV FOUNDRY_DIR=/usr/local
 RUN curl -L https://foundry.paradigm.xyz | bash && \
   /usr/local/bin/foundryup
 
+RUN pwd
+RUN ls
+
 WORKDIR /
 
+RUN pwd
+RUN ls
+
 COPY . /usecase
-COPY zeto/solidity/contracts /usecase/contracts
 
 WORKDIR /usecase
 
