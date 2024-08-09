@@ -1,0 +1,52 @@
+[
+    {
+        "name": "Account",
+        "fields": [
+          { "name": "id", "type": "Bytes!" },
+          { "name": "asZkDvP", "type": "zkDvPContract" },
+          {
+            "name": "TradeInitiatedEvents",
+            "type": "TradeInitiated!",
+            "derived": "emitter"
+          }
+        ]
+    },
+    {
+        "name": "Trade",
+        "fields": [
+          { "name": "asStatus", "type": "TradeStatus!" },
+          { "name": "asTrade", "type": "zkDvPContract" },
+          {
+            "name": "TradeInitiatedEvents",
+            "type": "TradeInitiated!",
+            "derived": "emitter"
+          }
+        ]
+    },
+    {
+      "name": "zkDvPContract",
+      "fields": [
+        { "name": "asTrade", "type": "Trade!" },
+        { "name": "tradeId", "type": "BigInt!" },
+        {
+          "name": "TradeInitiatedEvent",
+          "type": "TradeInitiated!",
+          "derived": "contract"
+        }
+      ]
+    },
+    {
+      "name": "TradeInitiated",
+      "immutable": true,
+      "parent": "Event",
+      "fields": [
+        { "name": "emitter", "type": "Account!" },
+        { "name": "transaction", "type": "Transaction!" },
+        { "name": "timestamp", "type": "BigInt!" },
+        { "name": "contract", "type": "zkDvPContract!" },
+        { "name": "tradeId", "type": "BigInt!" }
+        { "name": "trade", "type": "Trade!" }
+      ]
+    }
+  ]
+  
