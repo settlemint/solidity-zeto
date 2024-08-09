@@ -13,9 +13,8 @@ RUN curl -L https://foundry.paradigm.xyz | bash && \
 
 WORKDIR /
 
-COPY zeto/solidity/contracts /usecase/contracts
-
 COPY . /usecase
+COPY zeto/solidity/contracts /usecase/contracts
 
 WORKDIR /usecase
 
@@ -26,6 +25,11 @@ RUN forge build
 RUN npx hardhat compile
 
 FROM cgr.dev/chainguard/busybox:latest
+
+
+COPY --from=build /usecase /usecase
+COPY --from=build /root/.svm /usecase-svm
+COPY --from=build /root/.cache /usecase-cache
 
 # Container image that runs your code
 #FROM alpine:3.10
