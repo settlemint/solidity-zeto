@@ -36,6 +36,8 @@ jobs:
   circom-build-circuit:
     runs-on: ubuntu-latest
     steps:
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
