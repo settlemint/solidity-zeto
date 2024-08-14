@@ -1,0 +1,24 @@
+  - kind: ethereum/contract
+    name: {id}
+    network: {chain}
+    source:
+      address: "{address}"
+      abi: zkDvP
+      startBlock: {startBlock}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - zkDvP
+      abis:
+        - name: zkDvP
+          file: "{root}/out/zkDvP.sol/zkDvP.json"
+      eventHandlers:
+        - event: TradeInitiated(indexed uint256, Trade)
+          handler: handleTradeInitiated
+        - event: TradeAccepted(indexed uint256, Trade)
+          handler: handleTradeAccepted
+        - event: TradeCompleted(indexed uint256, Trade)
+          handler: handleTradeCompleted
+      file: {file}
