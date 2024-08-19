@@ -12,10 +12,27 @@
         ]
     },
     {
+      "name": "Proof",
+      "fields": [
+          { "name": "pA", "type": "Bytes!" },
+          { "name": "pB", "type": "Bytes!"},
+          { "name": "pC", "type": "Bytes!"}
+      ]
+    },
+    {
         "name": "Trade",
         "fields": [
-          { "name": "asStatus", "type": "TradeStatus!" },
-          { "name": "asTrade", "type": "zkDvPContract" },
+          { "name": "asStatus", "type": "BigInt!" },
+          { "name": "paymentCounterparty", "type": "Bytes!"},
+          { "name": "paymentInputs", "type": "Bytes!"},
+          { "name": "paymentOutputs", "type": "Bytes!"},
+          { "name": "paymentProofHash", "type": "Bytes!"},
+          { "name": "paymentProof", "type": "Proof!"},
+          { "name": "assetCounterparty", "type": "Bytes!"},
+          { "name": "assetInput", "type": "Bytes!"},
+          { "name": "assetOutput", "type": "Bytes!"},
+          { "name": "assetProofHash", "type": "Bytes!"},
+          { "name": "assetProofHash", "type": "Proof!"},
           {
             "name": "TradeInitiatedEvents",
             "type": "TradeInitiated!",
@@ -44,7 +61,7 @@
         { "name": "transaction", "type": "Transaction!" },
         { "name": "timestamp", "type": "BigInt!" },
         { "name": "contract", "type": "zkDvPContract!" },
-        { "name": "tradeId", "type": "BigInt!" }
+        { "name": "tradeId", "type": "BigInt!" },
         { "name": "trade", "type": "Trade!" }
       ]
     }
