@@ -157,13 +157,6 @@ jobs:
           ls -la zeto
           ls -la zeto/solidity
 
-      - name: Setup caches
-        uses: namespacelabs/nscloud-cache-action@v1
-        with:
-          path: |
-            ./node_modules
-            ~/.npm
-                    
       - name: Install Node dependencies
         run: npm install
 
