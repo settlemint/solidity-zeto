@@ -25,7 +25,6 @@
     "@graphprotocol/graph-ts": "0.35.1"
   },
   "dependencies": {
-    "@iden3/contracts": "^2.2.0",
     "@openzeppelin/contracts": "^4.9.6"
   }
 }
