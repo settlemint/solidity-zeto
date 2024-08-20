@@ -1,6 +1,6 @@
 {
   "name": "solidity-zeto",
-  "description": "Solidity Zeto",  
+  "description": "Solidity Zeto",
   "version": "7.0.0",
   "private": false,
   "license": "FSL-1.1-MIT",
@@ -43,6 +43,10 @@
     "@openzeppelin/subgraphs": "0.1.8-5",
     "hardhat": "2.22.6",
     "solhint": "^5.0.3"
+  },
+  "overrides": {
+    "@graphprotocol/graph-cli": "^0.80.1",
+    "@graphprotocol/graph-ts": "^0.35.1"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.2"
