@@ -34,12 +34,16 @@ defaults:
     working-directory: ./
 jobs:
   circom-build-circuit:
+    services:
+      foundry:
+        image: ghcr.io/settlemint/btp-anvil-test-node:latest
+        ports:
+          - '8545:8545'
+    name: Build Set          
     runs-on: ubuntu-latest
     steps:        
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+
       - name: install circom
         run: |
           pwd
@@ -156,6 +160,15 @@ jobs:
           ls -la 
           ls -la zeto
           ls -la zeto/solidity
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
       - name: Install Node dependencies
         run: npm install
