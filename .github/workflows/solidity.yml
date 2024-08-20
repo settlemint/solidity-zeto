@@ -156,6 +156,30 @@ jobs:
           ls -la 
           ls -la zeto
           ls -la zeto/solidity
+
+      - name: Setup caches
+        uses: namespacelabs/nscloud-cache-action@v1
+        with:
+          path: |
+            ./node_modules
+            ~/.npm
+                    
+      - name: Install Node dependencies
+        run: npm install
+
+      - name: Setup LCOV
+        if: github.ref_name != 'main'
+        uses: hrishikesh-kadam/setup-lcov@v1
+  
+      - name: Run Forge Coverage
+        if: github.ref_name != 'main'
+        run: |
+          forge coverage --report lcov --report summary
+        id: coverage
+  
+      - name: Deploy to the local node
+        run: |
+          npx hardhat ignition deploy --network localhost ignition/modules/main.ts          
       - name: Install YQ
         uses: alexellis/arkade-get@master
         with:
