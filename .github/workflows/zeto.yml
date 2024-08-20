@@ -166,8 +166,8 @@ jobs:
         with:
           images: |
             ghcr.io/${{ github.repository }}
-          flavor: |
-            latest=true
+    #      flavor: |
+    #        latest=true
           tags: |
             type=schedule
             type=ref,event=branch
