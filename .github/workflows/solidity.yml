@@ -204,8 +204,8 @@ jobs:
           yq -i e '.dataSources[].network = "localhost"' generated/scs.subgraph.yaml
           yq -i e '.templates[].mapping.apiVersion = "0.0.7"' generated/scs.subgraph.yaml
           yq -i e '.templates[].network = "localhost"' generated/scs.subgraph.yaml
-   #       npx graph codegen generated/scs.subgraph.yaml
-   #       npx graph build generated/scs.subgraph.yaml          
+          npx graph codegen generated/scs.subgraph.yaml
+          npx graph build generated/scs.subgraph.yaml          
       - name: Report code coverage
         if: github.event_name == 'pull_request'
         uses: zgosalvez/github-actions-report-lcov@v4.1.12

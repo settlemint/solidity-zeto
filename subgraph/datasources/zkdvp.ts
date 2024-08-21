@@ -10,14 +10,12 @@ export function handleTradeInitiated(event: TradeInitiatedEvent): void {
   const contract = fetchZkDvP(event.address);
 
   const ev = new TradeInitiated(events.id(event));
-  ev.emitter = Bytes.fromHexString(contract.id);
+  ev.emitter = contract.id;
   ev.transaction = transactions.log(event).id;
   ev.timestamp = event.block.timestamp;
 
   ev.contract = contract.id;
-  ev.tradeId = event.params.newValue;
   ev.save();
 
-  contract.currentValue = event.params.newValue;
   contract.save();
 }

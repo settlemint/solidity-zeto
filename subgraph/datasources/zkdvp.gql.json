@@ -1,17 +1,5 @@
 [
     {
-        "name": "Account",
-        "fields": [
-          { "name": "id", "type": "Bytes!" },
-          { "name": "asZkDvP", "type": "zkDvPContract" },
-          {
-            "name": "TradeInitiatedEvents",
-            "type": "TradeInitiated!",
-            "derived": "emitter"
-          }
-        ]
-    },
-    {
       "name": "Proof",
       "fields": [
           { "name": "pA", "type": "Bytes!" },
@@ -32,7 +20,7 @@
           { "name": "assetInput", "type": "Bytes!"},
           { "name": "assetOutput", "type": "Bytes!"},
           { "name": "assetProofHash", "type": "Bytes!"},
-          { "name": "assetProofHash", "type": "Proof!"},
+          { "name": "assetProof", "type": "Proof!"},
           {
             "name": "TradeInitiatedEvents",
             "type": "TradeInitiated!",
@@ -57,7 +45,7 @@
       "immutable": true,
       "parent": "Event",
       "fields": [
-        { "name": "emitter", "type": "Account!" },
+        { "name": "emitter", "type": "Trade!" },
         { "name": "transaction", "type": "Transaction!" },
         { "name": "timestamp", "type": "BigInt!" },
         { "name": "contract", "type": "zkDvPContract!" },

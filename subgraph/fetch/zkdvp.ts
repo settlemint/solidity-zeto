@@ -1,20 +1,19 @@
 import { Address, BigInt } from '@graphprotocol/graph-ts';
-import { ZkDvPContract } from '../../generated/schema';
+import { zkDvPContract } from '../../generated/schema';
+import { Trade } from "../../generated/schema";
 import { fetchAccount } from './account';
 
-export function fetchZkDvP(address: Address): ZkDvPContract {
+export function fetchZkDvP(address: Address): zkDvPContract {
   const account = fetchAccount(address);
-  let contract = ZkDvPContract.load(account.id.toHex());
-
+  let contract = zkDvPContract.load(account.id.toHex());
+  // trade id TBD
+  const trade = new Trade("0");
   if (contract == null) {
-    contract = new ZkDvPContract(account.id.toHex());
-    contract.asAccount = account.id;
-    account.asCounter = contract.id;
-    
+    contract = new zkDvPContract(account.id.toHex());
+    contract.asTrade = trade.id;
 
     contract.save();
-    account.save();
   }
 
-  return contract as ZkDvPContract;
+  return contract as zkDvPContract;
 }
