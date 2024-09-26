@@ -3,12 +3,6 @@
   "chain": "localhost",
   "datasources": [
     {
-      "name": "Counter",
-      "address": "0x0000000000000000000000000000000000000000",
-      "startBlock": 0,
-      "module": ["counter"]
-    },
-    {
       "name": "zkDvP",
       "address": "0x0000000000000000000000000000000000000000",
       "startBlock": 0,

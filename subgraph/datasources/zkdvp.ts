@@ -1,23 +1,18 @@
-import { events, transactions } from "@amxx/graphprotocol-utils";
-import { Bytes } from "@graphprotocol/graph-ts";
-import {
-    TradeInitiated as TradeInitiatedEvent,
-} from "../../generated/zkdvp/zkDvP";
-import { TradeInitiated } from "../../generated/schema";
-import { fetchZkDvP } from "../fetch/zkdvp";
+import { Address } from '@graphprotocol/graph-ts';
+import { Trade, zkDvPContract } from '../../generated/schema';
+import { fetchAccount } from './account';
 
-export function handleTradeInitiated(event: TradeInitiatedEvent): void {
-  const contract = fetchZkDvP(event.address);
+export function fetchZkDvP(address: Address): zkDvPContract {
+  const account = fetchAccount(address);
+  let contract = zkDvPContract.load(account.id.toHex());
+  // trade id TBD
+  const trade = new Trade("0");
+  if (contract == null) {
+    contract = new zkDvPContract(account.id.toHex());
+    contract.asTrade = trade.id;
 
-  const ev = new TradeInitiated(events.id(event));
-  ev.emitter = Bytes.fromHexString(contract.id);
-  ev.transaction = transactions.log(event).id;
-  ev.timestamp = event.block.timestamp;
+    contract.save();
+  }
 
-  ev.contract = contract.id;
-  ev.tradeId = event.params.newValue;
-  ev.save();
-
-  contract.currentValue = event.params.newValue;
-  contract.save();
+  return contract as zkDvPContract;
 }
