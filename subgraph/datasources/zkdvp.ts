@@ -1,6 +1,6 @@
 import { Address } from '@graphprotocol/graph-ts';
 import { Trade, zkDvPContract } from '../../generated/schema';
-import { fetchAccount } from './account';
+import { fetchAccount } from '../fetch/account';
 
 export function fetchZkDvP(address: Address): zkDvPContract {
   const account = fetchAccount(address);
