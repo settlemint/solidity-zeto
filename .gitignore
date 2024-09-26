@@ -25,9 +25,6 @@ out/
 /broadcast/*/31337/
 /broadcast/**/dry-run/
 
-# Docs
-docs/
-
 # Dotenv file
 .env
 
@@ -36,3 +33,4 @@ generated
 build
 
 .pnpm
+lcov.info
