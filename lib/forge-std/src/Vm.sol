@@ -243,52 +243,6 @@ interface VmSafe {
         uint64 gasRemaining;
     }
 
-    /// The result of the `stopDebugTraceRecording` call
-    struct DebugStep {
-        // The stack before executing the step of the run.
-        // stack\[0\] represents the top of the stack.
-        // and only stack data relevant to the opcode execution is contained.
-        uint256[] stack;
-        // The memory input data before executing the step of the run.
-        // only input data relevant to the opcode execution is contained.
-        // e.g. for MLOAD, it will have memory\[offset:offset+32\] copied here.
-        // the offset value can be get by the stack data.
-        bytes memoryInput;
-        // The opcode that was accessed.
-        uint8 opcode;
-        // The call depth of the step.
-        uint64 depth;
-        // Whether the call end up with out of gas error.
-        bool isOutOfGas;
-        // The contract address where the opcode is running
-        address contractAddr;
-    }
-
-    /// The transaction type (`txType`) of the broadcast.
-    enum BroadcastTxType {
-        // Represents a CALL broadcast tx.
-        Call,
-        // Represents a CREATE broadcast tx.
-        Create,
-        // Represents a CREATE2 broadcast tx.
-        Create2
-    }
-
-    /// Represents a transaction's broadcast details.
-    struct BroadcastTxSummary {
-        // The hash of the transaction that was broadcasted
-        bytes32 txHash;
-        // Represent the type of transaction among CALL, CREATE, CREATE2
-        BroadcastTxType txType;
-        // The address of the contract that was called or created.
-        // This is address of the contract that is created if the txType is CREATE or CREATE2.
-        address contractAddress;
-        // The block number the transaction landed in.
-        uint64 blockNumber;
-        // Status of the transaction, retrieved from the transaction receipt.
-        bool success;
-    }
-
     // ======== Crypto ========
 
     /// Derives a private key from the name, labels the account with that name, and returns the wallet.
@@ -330,23 +284,6 @@ interface VmSafe {
 
     /// Adds a private key to the local forge wallet and returns the address.
     function rememberKey(uint256 privateKey) external returns (address keyAddr);
-
-    /// Derive a set number of wallets from a mnemonic at the derivation path `m/44'/60'/0'/0/{0..count}`.
-    ///
-    /// The respective private keys are saved to the local forge wallet for later use and their addresses are returned.
-    function rememberKeys(string calldata mnemonic, string calldata derivationPath, uint32 count)
-        external
-        returns (address[] memory keyAddrs);
-
-    /// Derive a set number of wallets from a mnemonic in the specified language at the derivation path `m/44'/60'/0'/0/{0..count}`.
-    ///
-    /// The respective private keys are saved to the local forge wallet for later use and their addresses are returned.
-    function rememberKeys(
-        string calldata mnemonic,
-        string calldata derivationPath,
-        string calldata language,
-        uint32 count
-    ) external returns (address[] memory keyAddrs);
 
     /// Signs data with a `Wallet`.
     /// Returns a compact signature (`r`, `vs`) as per EIP-2098, where `vs` encodes both the
@@ -636,18 +573,12 @@ interface VmSafe {
         external
         returns (bytes memory data);
 
-    /// Records the debug trace during the run.
-    function startDebugTraceRecording() external;
-
     /// Starts recording all map SSTOREs for later retrieval.
     function startMappingRecording() external;
 
     /// Record all account accesses as part of CREATE, CALL or SELFDESTRUCT opcodes in order,
     /// along with the context of the calls
     function startStateDiffRecording() external;
-
-    /// Stop debug trace recording and returns the recorded debug trace.
-    function stopAndReturnDebugTraceRecording() external returns (DebugStep[] memory step);
 
     /// Returns an ordered array of all account accesses from a `vm.startStateDiffRecording` session.
     function stopAndReturnStateDiff() external returns (AccountAccess[] memory accountAccesses);
@@ -795,46 +726,6 @@ interface VmSafe {
     /// Writes line to file, creating a file if it does not exist.
     /// `path` is relative to the project root.
     function writeLine(string calldata path, string calldata data) external;
-
-    /// Returns the most recent broadcast for the given contract on `chainId` matching `txType`.
-    ///
-    /// For example:
-    ///
-    /// The most recent deployment can be fetched by passing `txType` as `CREATE` or `CREATE2`.
-    ///
-    /// The most recent call can be fetched by passing `txType` as `CALL`.
-    function getBroadcast(string calldata contractName, uint64 chainId, BroadcastTxType txType)
-        external
-        returns (BroadcastTxSummary memory);
-
-    /// Returns all broadcasts for the given contract on `chainId` with the specified `txType`.
-    ///
-    /// Sorted such that the most recent broadcast is the first element, and the oldest is the last. i.e descending order of BroadcastTxSummary.blockNumber.
-    function getBroadcasts(string calldata contractName, uint64 chainId, BroadcastTxType txType)
-        external
-        returns (BroadcastTxSummary[] memory);
-
-    /// Returns all broadcasts for the given contract on `chainId`.
-    ///
-    /// Sorted such that the most recent broadcast is the first element, and the oldest is the last. i.e descending order of BroadcastTxSummary.blockNumber.
-    function getBroadcasts(string calldata contractName, uint64 chainId)
-        external
-        returns (BroadcastTxSummary[] memory);
-
-    /// Returns the most recent deployment for the current `chainId`.
-    function getDeployment(string calldata contractName) external returns (address deployedAddress);
-
-    /// Returns the most recent deployment for the given contract on `chainId`
-    function getDeployment(string calldata contractName, uint64 chainId) external returns (address deployedAddress);
-
-    /// Returns all deployments for the given contract on `chainId`
-    ///
-    /// Sorted in descending order of deployment time i.e descending order of BroadcastTxSummary.blockNumber.
-    ///
-    /// The most recent deployment is the first element, and the oldest is the last.
-    function getDeployments(string calldata contractName, uint64 chainId)
-        external
-        returns (address[] memory deployedAddresses);
 
     // ======== JSON ========
 
@@ -1040,9 +931,6 @@ interface VmSafe {
     /// provided as the sender that can later be signed and sent onchain.
     function broadcast(uint256 privateKey) external;
 
-    /// Returns addresses of available unlocked wallets in the script environment.
-    function getScriptWallets() external returns (address[] memory wallets);
-
     /// Has all subsequent calls (at this call depth only) create transactions that can later be signed and sent onchain.
     /// Broadcasting address is determined by checking the following in order:
     /// 1. If `--sender` argument was provided, that address is used.
@@ -1060,9 +948,6 @@ interface VmSafe {
 
     /// Stops collecting onchain transactions.
     function stopBroadcast() external;
-
-    /// Returns addresses of available unlocked wallets in the script environment.
-    function getWallets() external returns (address[] memory wallets);
 
     // ======== String ========
 
@@ -1562,10 +1447,10 @@ interface VmSafe {
     function assumeNoRevert() external pure;
 
     /// Writes a breakpoint to jump to in the debugger.
-    function breakpoint(string calldata char) external pure;
+    function breakpoint(string calldata char) external;
 
     /// Writes a conditional breakpoint to jump to in the debugger.
-    function breakpoint(string calldata char, bool value) external pure;
+    function breakpoint(string calldata char, bool value) external;
 
     /// Returns the Foundry version.
     /// Format: <cargo_version>+<git_sha>+<build_timestamp>
@@ -1707,22 +1592,16 @@ interface VmSafe {
     /// Returns a random `address`.
     function randomAddress() external returns (address);
 
-    /// Returns a random `bool`.
+    /// Returns an random `bool`.
     function randomBool() external view returns (bool);
 
-    /// Returns a random byte array value of the given length.
+    /// Returns an random byte array value of the given length.
     function randomBytes(uint256 len) external view returns (bytes memory);
 
-    /// Returns a random fixed-size byte array of length 4.
-    function randomBytes4() external view returns (bytes4);
-
-    /// Returns a random fixed-size byte array of length 8.
-    function randomBytes8() external view returns (bytes8);
-
-    /// Returns a random `int256` value.
+    /// Returns an random `int256` value.
     function randomInt() external view returns (int256);
 
-    /// Returns a random `int256` value of given bits.
+    /// Returns an random `int256` value of given bits.
     function randomInt(uint256 bits) external view returns (int256);
 
     /// Returns a random uint256 value.
@@ -1731,7 +1610,7 @@ interface VmSafe {
     /// Returns random uint256 value between the provided range (=min..=max).
     function randomUint(uint256 min, uint256 max) external returns (uint256);
 
-    /// Returns a random `uint256` value of given bits.
+    /// Returns an random `uint256` value of given bits.
     function randomUint(uint256 bits) external view returns (uint256);
 
     /// Unpauses collection of call traces.
@@ -1777,9 +1656,6 @@ interface Vm is VmSafe {
 
     /// Clears all mocked calls.
     function clearMockedCalls() external;
-
-    /// Clones a source account code, state, balance and nonce to a target account and updates in-memory EVM state.
-    function cloneAccount(address source, address target) external;
 
     /// Sets `block.coinbase`.
     function coinbase(address newCoinbase) external;
@@ -1838,7 +1714,7 @@ interface Vm is VmSafe {
     /// Returns true if the account is marked as persistent.
     function isPersistent(address account) external view returns (bool persistent);
 
-    /// Load a genesis JSON file's `allocs` into the in-memory EVM state.
+    /// Load a genesis JSON file's `allocs` into the in-memory revm state.
     function loadAllocs(string calldata pathToAllocsJson) external;
 
     /// Marks that the account(s) should use persistent storage across fork swaps in a multifork setup
@@ -1870,12 +1746,6 @@ interface Vm is VmSafe {
     /// Mocks a call to an address with a specific `msg.value`, returning specified data.
     /// Calldata match takes precedence over `msg.value` in case of ambiguity.
     function mockCall(address callee, uint256 msgValue, bytes calldata data, bytes calldata returnData) external;
-
-    /// Mocks multiple calls to an address, returning specified data for each call.
-    function mockCalls(address callee, bytes calldata data, bytes[] calldata returnData) external;
-
-    /// Mocks multiple calls to an address with a specific `msg.value`, returning specified data for each call.
-    function mockCalls(address callee, uint256 msgValue, bytes calldata data, bytes[] calldata returnData) external;
 
     /// Whenever a call is made to `callee` with calldata `data`, this cheatcode instead calls
     /// `target` with the same calldata. This functionality is similar to a delegate call made to

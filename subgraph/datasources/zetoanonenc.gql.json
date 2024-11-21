@@ -1,0 +1,58 @@
+[
+    {
+      "name": "OwnershipTransferred",
+      "immutable": true,
+      "fields": [
+        { "name": "id", "type": "ID!" },
+        { "name": "previousOwner", "type": "Bytes!" },
+        { "name": "newOwner", "type": "Bytes!" },
+        { "name": "timestamp", "type": "BigInt!" }
+      ]
+    },
+    {
+      "name": "Initialized",
+      "immutable": true,
+      "fields": [
+        { "name": "id", "type": "ID!" },
+        { "name": "version", "type": "BigInt!" },
+        { "name": "timestamp", "type": "BigInt!" }
+      ]
+    },
+    {
+      "name": "Upgraded",
+      "immutable": true,
+      "fields": [
+        { "name": "id", "type": "ID!" },
+        { "name": "implementation", "type": "Bytes!" },
+        { "name": "timestamp", "type": "BigInt!" }
+      ]
+    },
+    {
+      "name": "UTXOMint",
+      "immutable": true,
+      "fields": [
+        { "name": "id", "type": "ID!" },
+        { "name": "outputs", "type": "[BigInt!]!" },
+        { "name": "submitter", "type": "Bytes!" },
+        { "name": "data", "type": "Bytes!" },
+        { "name": "timestamp", "type": "BigInt!" }
+      ]
+    },
+    {
+      "name": "UTXOTransferWithEncryptedValues",
+      "immutable": true,
+      "fields": [
+        { "name": "id", "type": "ID!" },
+        { "name": "inputs", "type": "[BigInt!]!" },
+        { "name": "outputs", "type": "[BigInt!]!" },
+        { "name": "encryptionNonce", "type": "BigInt!" },
+        { "name": "ecdhPublicKeyX", "type": "BigInt!" },
+        { "name": "ecdhPublicKeyY", "type": "BigInt!" },
+        { "name": "encryptedValues", "type": "[BigInt!]!" },
+        { "name": "submitter", "type": "Bytes!" },
+        { "name": "data", "type": "Bytes!" },
+        { "name": "timestamp", "type": "BigInt!" }
+      ]
+    }
+  ]
+  

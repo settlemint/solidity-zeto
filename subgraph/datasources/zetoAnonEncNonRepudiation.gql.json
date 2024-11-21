@@ -1,0 +1,48 @@
+[
+    {
+      "name": "UTXOTransferNonRepudiation",
+      "fields": [
+        { "name": "id", "type": "ID!" },
+        { "name": "inputs", "type": "[BigInt!]" },
+        { "name": "outputs", "type": "[BigInt!]" },
+        { "name": "encryptionNonce", "type": "BigInt!" },
+        { "name": "ecdhPublicKey", "type": "[BigInt!]" },
+        { "name": "encryptedValuesForReceiver", "type": "[BigInt!]" },
+        { "name": "encryptedValuesForAuthority", "type": "[BigInt!]" },
+        { "name": "submitter", "type": "Bytes!" },
+        { "name": "data", "type": "Bytes!" }
+      ]
+    },
+    {
+      "name": "UTXOMint",
+      "fields": [
+        { "name": "id", "type": "ID!" },
+        { "name": "outputs", "type": "[BigInt!]" },
+        { "name": "submitter", "type": "Bytes!" },
+        { "name": "data", "type": "Bytes!" }
+      ]
+    },
+    {
+      "name": "OwnershipTransferred",
+      "fields": [
+        { "name": "id", "type": "ID!" },
+        { "name": "previousOwner", "type": "Bytes!" },
+        { "name": "newOwner", "type": "Bytes!" }
+      ]
+    },
+    {
+      "name": "Upgraded",
+      "fields": [
+        { "name": "id", "type": "ID!" },
+        { "name": "implementation", "type": "Bytes!" }
+      ]
+    },
+    {
+      "name": "Initialized",
+      "fields": [
+        { "name": "id", "type": "ID!" },
+        { "name": "version", "type": "BigInt!" }
+      ]
+    }
+  ]
+  

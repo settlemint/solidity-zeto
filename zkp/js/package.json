@@ -1,0 +1,28 @@
+{
+  "name": "zeto-js",
+  "version": "0.0.1",
+  "description": "JS library for the Zeto toolkit",
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "scripts": {
+    "prettier": "npx prettier integration-test lib test --check",
+    "prettier:fix": "npm run prettier -- --write",
+    "pretest": "npm run prettier:fix",
+    "test": "mocha --exit test/*.js test/lib/*.js",
+    "test:e2e": "mocha --exit integration-test/*.js"
+  },
+  "dependencies": {
+    "ethers": "6.13.4",
+    "maci-crypto": "1.2.5",
+    "poseidon-lite": "0.3.0"
+  },
+  "devDependencies": {
+    "@iden3/js-merkletree": "1.3.1",
+    "chai": "4.5.0",
+    "circom_tester": "0.0.20",
+    "circomlibjs": "0.1.7",
+    "mocha": "10.8.2",
+    "prettier": "3.3.3",
+    "snarkjs": "0.7.5"
+  }
+}

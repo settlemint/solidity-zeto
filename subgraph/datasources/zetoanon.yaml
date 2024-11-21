@@ -1,0 +1,24 @@
+  - kind: ethereum/contract
+    name: ZetoAnonContract
+    network: btp
+    source:
+      address: "{address}"
+      abi: ZetoAnon
+      startBlock: 1
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - ZetoAnon
+      abis:
+        - name: ZetoAnon
+          file: {root}/out/zeto_anon.sol/Zeto_Anon.json
+      eventHandlers:
+        - event:   UTXOTransfer(uint256[],uint256[],indexed address,bytes)
+          handler: handleUTXOTransfer
+        - event:   UTXOMint(uint256[],indexed address,bytes)
+          handler: handleUTXOMint
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: {file}
