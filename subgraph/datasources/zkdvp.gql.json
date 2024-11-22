@@ -1,0 +1,56 @@
+[
+  {
+    "name": "TradeInitiated",
+    "immutable": true,
+    "fields": [
+      { "name": "id", "type": "ID!" },
+      { "name": "tradeId", "type": "BigInt!" },
+      { "name": "status", "type": "Int!" },
+      { "name": "paymentCounterparty", "type": "Bytes!" },
+      { "name": "paymentInputs", "type": "[BigInt!]!" },
+      { "name": "paymentOutputs", "type": "[BigInt!]!" },
+      { "name": "paymentProofHash", "type": "Bytes!" },
+      { "name": "assetCounterparty", "type": "Bytes!" },
+      { "name": "assetInput", "type": "BigInt!" },
+      { "name": "assetOutput", "type": "BigInt!" },
+      { "name": "assetProofHash", "type": "Bytes!" },
+      { "name": "timestamp", "type": "BigInt!" }
+    ]
+  },
+  {
+    "name": "TradeAccepted",
+    "immutable": true,
+    "fields": [
+      { "name": "id", "type": "ID!" },
+      { "name": "tradeId", "type": "BigInt!" },
+      { "name": "status", "type": "Int!" },
+      { "name": "paymentCounterparty", "type": "Bytes!" },
+      { "name": "paymentInputs", "type": "[BigInt!]!" },
+      { "name": "paymentOutputs", "type": "[BigInt!]!" },
+      { "name": "paymentProofHash", "type": "Bytes!" },
+      { "name": "assetCounterparty", "type": "Bytes!" },
+      { "name": "assetInput", "type": "BigInt!" },
+      { "name": "assetOutput", "type": "BigInt!" },
+      { "name": "assetProofHash", "type": "Bytes!" },
+      { "name": "timestamp", "type": "BigInt!" }
+    ]
+  },
+  {
+    "name": "TradeCompleted",
+    "immutable": true,
+    "fields": [
+      { "name": "id", "type": "ID!" },
+      { "name": "tradeId", "type": "BigInt!" },
+      { "name": "status", "type": "Int!" },
+      { "name": "paymentCounterparty", "type": "Bytes!" },
+      { "name": "paymentInputs", "type": "[BigInt!]!" },
+      { "name": "paymentOutputs", "type": "[BigInt!]!" },
+      { "name": "paymentProofHash", "type": "Bytes!" },
+      { "name": "assetCounterparty", "type": "Bytes!" },
+      { "name": "assetInput", "type": "BigInt!" },
+      { "name": "assetOutput", "type": "BigInt!" },
+      { "name": "assetProofHash", "type": "Bytes!" },
+      { "name": "timestamp", "type": "BigInt!" }
+    ]
+  }
+]

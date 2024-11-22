@@ -1,8 +1,4 @@
-FROM node:22.11.0 AS build
-
-COPY --from=oven/bun:1.1.34-debian --chmod=0777 /usr/local/bin/bun /bin/bun
-ENV BUN_RUNTIME_TRANSPILER_CACHE_PATH=0
-ENV BUN_INSTALL_BIN=/bin
+FROM node:22.11.0-bookworm AS build
 
 RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
   export DEBIAN_FRONTEND=noninteractive && \
@@ -23,11 +19,11 @@ WORKDIR /usecase
 
 USER root
 
-RUN bun install
+RUN npm install
 RUN forge build
-RUN bun hardhat compile
+RUN npx hardhat compile
 
-FROM busybox:1.37.0
+FROM cgr.dev/chainguard/busybox:latest
 
 COPY --from=build /usecase /usecase
 COPY --from=build /root/.svm /usecase-svm

@@ -1,0 +1,32 @@
+  - kind: ethereum/contract
+    name: ZetoAnonEncContract
+    network: btp
+    source:
+      address: "{address}"
+      abi: Zeto_AnonEnc
+      startBlock: 1
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - UTXOTransferWithEncryptedValues
+        - UTXOMint
+        - Upgraded
+        - Initialized
+        - OwnershipTransferred
+      abis:
+        - name: Zeto_AnonEnc
+          file: {root}/out/zeto_anon_enc.sol/Zeto_AnonEnc.json
+      eventHandlers:
+        - event: UTXOTransferWithEncryptedValues(uint256[],uint256[],uint256,uint256[2],uint256[],indexed address,bytes)
+          handler: handleUTXOTransferWithEncryptedValues
+        - event: UTXOMint(uint256[],indexed address,bytes)
+          handler: handleUTXOMint
+        - event: Upgraded(indexed address)
+          handler: handleUpgraded
+        - event: Initialized(uint64)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: {file}

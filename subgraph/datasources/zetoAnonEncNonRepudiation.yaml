@@ -1,0 +1,32 @@
+  - kind: ethereum/contract
+    name: ZetoAnonEncNonRepudiationContract
+    network: btp
+    source:
+      address: "{address}"
+      abi: Zeto_AnonEncNullifierNonRepudiation
+      startBlock: 1
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - UTXOTransferNonRepudiation
+        - UTXOMint
+        - Upgraded
+        - Initialized
+        - OwnershipTransferred
+      abis:
+        - name: Zeto_AnonEncNullifierNonRepudiation
+          file: {root}/out/zeto_anon_enc_nullifier_non_repudiation.sol/Zeto_AnonEncNullifierNonRepudiation.json
+      eventHandlers:
+        - event: UTXOTransferNonRepudiation(uint256[],uint256[],uint256,uint256[2],uint256[],uint256[],indexed address,bytes)
+          handler: handleUTXOTransferNonRepudiation
+        - event: UTXOMint(uint256[],indexed address,bytes)
+          handler: handleUTXOMint
+        - event: Upgraded(indexed address)
+          handler: handleUpgraded
+        - event: Initialized(uint64)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: {file}

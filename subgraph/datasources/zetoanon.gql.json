@@ -1,0 +1,80 @@
+[
+  {
+    "name": "UTXOMint",
+    "immutable": true,
+    "fields": [
+      {
+        "name": "id",
+        "type": "ID!"
+      },
+      {
+        "name": "outputs",
+        "type": "[BigInt!]!"
+      },
+      {
+        "name": "submitter",
+        "type": "Bytes!"
+      },
+      {
+        "name": "data",
+        "type": "Bytes!"
+      },
+      {
+        "name": "timestamp",
+        "type": "BigInt!"
+      }
+    ]
+  },
+  {
+    "name": "UTXOTransfer",
+    "immutable": true,
+    "fields": [
+      {
+        "name": "id",
+        "type": "ID!"
+      },
+      {
+        "name": "inputs",
+        "type": "[BigInt!]!"
+      },
+      {
+        "name": "outputs",
+        "type": "[BigInt!]!"
+      },
+      {
+        "name": "sender",
+        "type": "Bytes!"
+      },
+      {
+        "name": "data",
+        "type": "Bytes!"
+      },
+      {
+        "name": "timestamp",
+        "type": "BigInt!"
+      }
+    ]
+  },
+  {
+    "name": "OwnershipTransferred",
+    "immutable": true,
+    "fields": [
+      {
+        "name": "id",
+        "type": "ID!"
+      },
+      {
+        "name": "previousOwner",
+        "type": "Bytes!"
+      },
+      {
+        "name": "newOwner",
+        "type": "Bytes!"
+      },
+      {
+        "name": "timestamp",
+        "type": "BigInt!"
+      }
+    ]
+  }
+]

@@ -1,11 +1,11 @@
-import "@nomicfoundation/hardhat-foundry";
-import "@nomicfoundation/hardhat-toolbox-viem";
-import "@nomiclabs/hardhat-solhint";
-import type { HardhatUserConfig } from "hardhat/config";
+import { HardhatUserConfig } from "hardhat/config";
+import "@nomicfoundation/hardhat-toolbox";
+import "@nomicfoundation/hardhat-ethers";
+import '@openzeppelin/hardhat-upgrades';
 
 const config: HardhatUserConfig = {
   solidity: {
-    version: "0.8.20",
+    version: "0.8.27",
     settings: {
       viaIR: true,
       optimizer: {

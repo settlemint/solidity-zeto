@@ -1,0 +1,24 @@
+{
+  "output": "generated/scs.",
+  "chain": "localhost",
+  "datasources": [
+    {
+      "name": "ZetoAnonContract",
+      "address": "0x-your-address-here",
+      "startBlock": 1,
+      "module": ["zetoanon"]
+    },
+    {
+      "name": "zkDvPContract",
+      "address":"0x-your-address-here",
+      "startBlock": 1,                    
+      "module": ["zkdvp"]              
+    },
+    {
+      "name": "ZetoAnonEncContract",
+      "address": "0x-your-address-here",
+      "startBlock": 1,
+      "module": ["zetoanonenc"]
+    }
+  ]
+}
