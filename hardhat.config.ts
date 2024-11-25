@@ -2,6 +2,7 @@ import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 import "@nomicfoundation/hardhat-ethers";
 import '@openzeppelin/hardhat-upgrades';
+import "./scripts/deploy_upgradeable_token"; // Changed this line to correct path
 
 const config: HardhatUserConfig = {
   solidity: {
