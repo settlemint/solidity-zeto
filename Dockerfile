@@ -20,6 +20,7 @@ WORKDIR /usecase
 USER root
 
 RUN npm install
+RUN node scripts/decompress.js
 RUN forge build
 RUN npx hardhat compile
 
