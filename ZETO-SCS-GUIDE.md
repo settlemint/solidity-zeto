@@ -224,5 +224,3 @@ JavaScript libraries (`generateProof.js`, `verifyProof.js`) are generated to fac
 - UTXOMint
 - OwnershipTransferred
 ```
-
-This updated guide reflects the changes in your setup process, emphasizing the use of the `powers_of_tau` directory for the trusted setup and the role of `generateLocalSetup.js` for local testing.
