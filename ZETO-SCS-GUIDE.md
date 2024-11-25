@@ -4,7 +4,6 @@ This guide will help you deploy Zeto tokens and their corresponding verifiers in
 
 ---
 
-
 ## Introduction
 
 Zeto is a set of smart contracts that enable anonymous transactions using zero-knowledge proofs (zkSNARKs). Depending on your environment (TEST or PRODUCTION), the deployment process varies slightly. This guide will help you navigate both scenarios.
@@ -37,17 +36,16 @@ In TEST mode, all necessary zkSNARK components (Powers of Tau, zKeys, etc.) are 
 To deploy a token in TEST mode, use the following Hardhat task:
 
 ```bash
-npx hardhat deploy-upgradeable --token-name <TokenName>
+npx hardhat deploy-upgradeable <TokenName>
 ```
 
 **Example:**
 
 ```bash
-npx hardhat deploy-upgradeable --token-name Zeto_Anon
+npx hardhat deploy-upgradeable Zeto_Anon
 ```
 
 This command will:
-
 - Deploy the specified Zeto token contract.
 - Deploy the corresponding verifiers.
 - Set up the necessary configurations.
@@ -65,10 +63,7 @@ Before running this command, ensure that the deployment script `deploy-zkdvp.ts`
 ```javascript
 const [deployer] = await ethers.getSigners();
 
-
-
 const { zeto: paymentToken } = await deployFungible(hre, "Zeto_Anon");
-
 const { zeto: assetToken } = await deployNonFungible(hre, "Zeto_NfAnon");
 ```
 
@@ -76,62 +71,44 @@ const { zeto: assetToken } = await deployNonFungible(hre, "Zeto_NfAnon");
 
 ## PRODUCTION Mode Setup
 
-In PRODUCTION mode, you need to perform a trusted setup and generate the zkSNARK components yourself. This ensures maximum security for real-world deployments.
+In PRODUCTION mode, you need to perform a trusted setup using the scripts provided in the `scripts/powers_of_tau` directory. This ensures maximum security for real-world deployments.
 
-### Understanding `trustedSetupAndGenerateVerifiers.js`
+### Trusted Setup
 
-The script `trustedSetupAndGenerateVerifiers.js` performs the following tasks:
+The trusted setup is now managed through the `powers_of_tau` directory, which contains scripts for both the coordinator and contributors. Follow the guide within this directory to conduct the setup.
 
-1. **Powers of Tau Ceremony**: Generates the initial zkSNARK setup parameters.
-2. **Circuit Compilation**: Processes each circuit associated with the token.
-3. **ZKey Generation**: Creates zero-knowledge keys for proving and verification.
-4. **Verifier Contract Generation**: Produces the Solidity verifier contracts.
-5. **Prover Library Generation**: Prepares the libraries needed for generating proofs.
+### Local Setup with `generateLocalSetup.js`
 
-### Running the Trusted Setup
-
-**Step 1: Run the Script**
+For local testing and development, you can generate a new setup using:
 
 ```bash
-node trustedSetupAndGenerateVerifiers.js <TokenName> <Power>
+node scripts/generateLocalSetup.js <TokenName> [power]
 ```
 
 **Example:**
 
 ```bash
-node trustedSetupAndGenerateVerifiers.js Zeto_Anon 12
+node scripts/generateLocalSetup.js Zeto_Anon 12
 ```
 
-**Parameters:**
-
-- `<TokenName>`: Name of the token (e.g., `Zeto_Anon`).
-- `<Power>`: Circuit power level (e.g., `12`). Defaults are provided in the table above.
-
-**Step 2: Understand the Outputs**
-
-The script generates several files:
-
-- **Powers of Tau Files (`*.ptau`)**: Initial parameters for zkSNARK circuits.
-- **Zero-Knowledge Keys (`*.zkey`)**: Keys used for proof generation and verification.
-- **Verifier Contracts (`verifier_*.sol`)**: Solidity contracts for on-chain verification.
-- **Prover Libraries**: JavaScript libraries for generating proofs.
-
-**Step 3: Backup Existing Verifiers**
-
-The script automatically backs up existing verifier contracts to a timestamped directory. This ensures that previous versions are preserved.
+This script will:
+- Generate Powers of Tau parameters locally.
+- Create circuit-specific setups.
+- Produce verifier contracts.
+- Set up prover and verifier files.
 
 ### Deploying Tokens in PRODUCTION Mode
 
-After generating the zkSNARK components, deploy the tokens using the same Hardhat task:
+After completing the trusted setup, deploy the tokens using the same Hardhat task:
 
 ```bash
-npx hardhat deploy-upgradeable --token-name <TokenName>
+npx hardhat deploy-upgradeable <TokenName>
 ```
 
 **Example:**
 
 ```bash
-npx hardhat deploy-upgradeable --token-name Zeto_Anon
+npx hardhat deploy-upgradeable Zeto_Anon
 ```
 
 This will deploy the token contract along with the newly generated verifiers.
@@ -159,10 +136,7 @@ JavaScript libraries (`generateProof.js`, `verifyProof.js`) are generated to fac
 
 ---
 
-
-
 # Zeto zkDVP Subgraph: Contract Events & Schema Documentation
-
 
 ## 1. Zeto_Anon
 **Contract**: `zeto_anon.sol`
@@ -249,17 +223,6 @@ JavaScript libraries (`generateProof.js`, `verifyProof.js`) are generated to fac
 - UTXOTransfer
 - UTXOMint
 - OwnershipTransferred
+```
 
-## 10. zkDvP
-**Contract**: `zkDvP.sol`
-**Datasource**: `zkdvp.yaml`
-**Handler**: `zkdvp.ts`
-**Schema**: `zkdvp.gql.json`
-**Events**:
-- TradeInitiated(indexed uint256,(uint8,address,uint256[2],uint256[2],bytes32,(uint256[2],uint256[2][2],uint256[2]),address,uint256,uint256,bytes32,(uint256[2],uint256[2][2],uint256[2])))
-- TradeAccepted(same parameters as TradeInitiated)
-- TradeCompleted(same parameters as TradeInitiated)
-
-
-
-
+This updated guide reflects the changes in your setup process, emphasizing the use of the `powers_of_tau` directory for the trusted setup and the role of `generateLocalSetup.js` for local testing.
