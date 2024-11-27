@@ -1,12 +1,12 @@
-![logo](https://github.com/settlemint/solidity-token-erc20/blob/main/OG_Solidity.jpg)
+![logo](https://github.com/settlemint/solidity-zeto/blob/main/OG_Solidity.jpg)
 
 ✨ [https://settlemint.com](https://settlemint.com) ✨
 
 Build your own blockchain usecase with ease.
 
-[![CI status](https://github.com/settlemint/solidity-token-erc20/actions/workflows/solidity.yml/badge.svg?event=push&branch=main)](https://github.com/settlemint/solidity-token-erc20/actions?query=branch%3Amain) [![License](https://img.shields.io/npm/l/@settlemint/solidity-token-erc20)](https://fsl.software) [![npm](https://img.shields.io/npm/dw/@settlemint/solidity-token-erc20)](https://www.npmjs.com/package/@settlemint/solidity-token-erc20) [![stars](https://img.shields.io/github/stars/settlemint/solidity-token-erc20)](https://github.com/settlemint/solidity-token-erc20)
+[![CI status](https://github.com/settlemint/solidity-zeto/actions/workflows/solidity.yml/badge.svg?event=push&branch=main)](https://github.com/settlemint/solidity-zeto/actions?query=branch%3Amain) [![License](https://img.shields.io/npm/l/@settlemint/solidity-zeto)](https://fsl.software) [![npm](https://img.shields.io/npm/dw/@settlemint/solidity-zeto)](https://www.npmjs.com/package/@settlemint/solidity-zeto) [![stars](https://img.shields.io/github/stars/settlemint/solidity-zeto)](https://github.com/settlemint/solidity-zeto)
 
-[Documentation](https://console.settlemint.com/documentation/) • [Discord](https://discord.com/invite/Mt5yqFrey9) • [NPM](https://www.npmjs.com/package/@settlemint/solidity-token-erc20) • [Issues](https://github.com/settlemint/solidity-token-erc20/issues)
+[Documentation](https://console.settlemint.com/documentation/) • [Discord](https://discord.com/invite/Mt5yqFrey9) • [NPM](https://www.npmjs.com/package/@settlemint/solidity-zeto) • [Issues](https://github.com/settlemint/solidity-zeto/issues)
 
 ## Get started
 
@@ -15,13 +15,13 @@ Launch this smart contract set in SettleMint under the `Smart Contract Sets` sec
 If you want to use it separately, bootstrap a new project using
 
 ```shell
-forge init my-project --template settlemint/solidity-token-erc20
+forge init my-project --template settlemint/solidity-zeto
 ```
 
 Or if you want to use this set as a dependency of your own,
 
 ```shell
-npm install @settlemint/solidity-token-erc20
+bun install @settlemint/solidity-zeto
 ```
 
 ## DX: Foundry & Hardhat hybrid
