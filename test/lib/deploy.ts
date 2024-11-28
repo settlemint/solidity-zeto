@@ -1,10 +1,11 @@
 // set this to turn off paramters checking in the deployment scripts
 process.env.TEST_DEPLOY_SCRIPTS = "true";
 
+import { HardhatRuntimeEnvironment } from "hardhat/types";
 import {
   deployFungible as deployFungibleUpgradeable,
   deployNonFungible as deployNonFungibleUpgradeable,
-} from "../../scripts/deploy_upgradeable";
+} from "../../scripts/deploy_upgradeable_token";
 import {
   deployFungible as deployFungibleCloneable,
   deployNonFungible as deployNonFungibleCloneable,
@@ -39,7 +40,9 @@ export async function deployZeto(tokenName: string) {
     const deployFunc = isFungible
       ? deployFungibleUpgradeable
       : deployNonFungibleUpgradeable;
-    const result = await deployFunc(tokenName);
+    // Pass hardhat as first argument
+    const hre = require("hardhat");
+    const result = await deployFunc(hre, tokenName);
     ({ deployer, zeto, erc20 } = result as any);
   } else {
     console.log('Deploying as cloneable contracts using "ZetoTokenFactory"');
@@ -47,7 +50,8 @@ export async function deployZeto(tokenName: string) {
     const deployFunc = isFungible
       ? deployFungibleCloneable
       : deployNonFungibleCloneable;
-    const result = await deployFunc(tokenName);
+    const hre = require("hardhat");
+    const result = await deployFunc(hre, tokenName);
     ({ deployer, zetoImpl, erc20, args } = result as any);
     const [
       deployerAddr,
@@ -76,7 +80,7 @@ export async function deployZeto(tokenName: string) {
       batchWithdrawVerifier:
         batchWithdrawVerifier || "0x0000000000000000000000000000000000000000",
     };
-    // console.log(implInfo);
+    
     const tx1 = await factory
       .connect(deployer)
       .registerImplementation(tokenName, implInfo as any);
