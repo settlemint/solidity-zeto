@@ -23,8 +23,13 @@ import { formatPrivKeyForBabyJub, stringifyBigInts } from "maci-crypto";
 import { User, UTXO, newUser, newAssetUTXO, doMint } from "./lib/utils";
 import { loadProvingKeys } from "./utils";
 import { deployZeto } from "./lib/deploy";
+import { decompressFiles } from "../scripts/decompress";
+
 
 describe("Zeto based non-fungible token with anonymity without encryption or nullifiers", function () {
+  before(async function() {
+    await decompressFiles();
+  });
   let deployer: Signer;
   let Alice: User;
   let Bob: User;

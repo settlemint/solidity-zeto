@@ -50,9 +50,14 @@ import {
   prepareNullifierWithdrawProof,
 } from "./utils";
 import { deployZeto } from "./lib/deploy";
+import { decompressFiles } from "../scripts/decompress";
+
 const poseidonHash = Poseidon.poseidon4;
 
 describe("Zeto based fungible token with anonymity using nullifiers and encryption with KYC", function () {
+  before(async function() {
+    await decompressFiles();
+  });
   let deployer: Signer;
   let Alice: User;
   let Bob: User;
