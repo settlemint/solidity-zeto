@@ -1,6 +1,6 @@
 {
-  "name": "@settlemint/solidity-token-erc20",
-  "description": "Smart contract set to build an ERC20 token in SettleMint",
+  "name": "@settlemint/solidity-zeto",
+  "description": "Smart contract set to build Zero Knowledge tokens in SettleMint",
   "version": "7.7.0",
   "private": false,
   "license": "FSL-1.1-MIT",
@@ -9,20 +9,22 @@
     "email": "support@settlemint.com",
     "url": "https://settlemint.com"
   },
-  "homepage": "https://github.com/settlemint/solidity-token-erc20/blob/main/README.md",
+  "homepage": "https://github.com/settlemint/solidity-zeto/blob/main/README.md",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/settlemint/solidity-token-erc20.git"
+    "url": "git+https://github.com/settlemint/solidity-zeto.git"
   },
   "bugs": {
-    "url": "https://github.com/settlemint/solidity-token-erc20/issues",
+    "url": "https://github.com/settlemint/solidity-zeto/issues",
     "email": "support@settlemint.com"
   },
   "keywords": [
     "solidity",
     "subgraph",
     "blockchain-transformation",
-    "erc20"
+    "zeto",
+    "zero Knowledge token",
+    "zkdvp"
   ],
   "files": [
     "/contracts",
