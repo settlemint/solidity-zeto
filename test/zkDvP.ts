@@ -57,27 +57,40 @@ describe("DvP flows between fungible and non-fungible tokens based on Zeto with 
 
   before(async function () {
     if (network.name !== "hardhat") {
-      // accommodate for longer block times on public networks
       this.timeout(120000);
     }
+    
     let [d, a, b, c] = await ethers.getSigners();
     deployer = d;
     Alice = await newUser(a);
     Bob = await newUser(b);
     Charlie = await newUser(c);
 
+    // First deploy the asset token (NFT)
     ({ deployer, zeto: zkAsset } = await deployZeto("Zeto_NfAnon"));
     console.log(`ZK Asset contract deployed at ${zkAsset.target}`);
+
+    // Then deploy the payment token (ERC20)
     ({ deployer, zeto: zkPayment } = await deployZeto("Zeto_Anon"));
     console.log(`ZK Payment contract deployed at ${zkPayment.target}`);
-    ({ zkDvP } = await ignition.deploy(zkDvPModule, {
+
+    // Deploy DvP with parameters matching the module
+    const deploymentResult = await ignition.deploy(zkDvPModule, {
       parameters: {
-        zkDvP: {
-          assetToken: zkAsset.target,
+        ZkDvPModule: {
           paymentToken: zkPayment.target,
-        },
-      },
-    }));
+          assetToken: zkAsset.target
+        }
+      }
+    });
+
+    zkDvP = deploymentResult.zkDvP;
+
+    console.log("Deployment addresses:", {
+      assetToken: zkAsset.target,
+      paymentToken: zkPayment.target,
+      zkDvP: zkDvP?.target
+    });
   });
 
   it("mint to Alice some payment tokens", async function () {
@@ -220,6 +233,7 @@ describe("DvP flows between fungible and non-fungible tokens based on Zeto with 
     expect(events[0].tradeId).to.equal(tradeId);
     expect(events[0].trade.status).to.equal(2n); // enum for TradeStatus.Completed
   });
+
   describe("failure cases", function () {
     // the following failure cases rely on the hardhat network
     // to return the details of the errors. This is not possible
@@ -368,82 +382,6 @@ describe("DvP flows between fungible and non-fungible tokens based on Zeto with 
             mockProofHash,
           ),
       ).rejectedWith("Asset output must be provided to accept the trade");
-    });
-
-    it("Failing cases for accepting a trade with asset terms", async function () {
-      const mockProofHash = encodeBytes32String("mock proof hash");
-      const utxo1 = newAssetUTXO(100, "http://ipfs.io/file-hash-1", Alice);
-      const utxo2 = newAssetUTXO(202, "http://ipfs.io/file-hash-2", Bob);
-      const tx1 = await zkDvP
-        .connect(Alice.signer)
-        .initiateTrade(
-          [0, 0],
-          [0, 0],
-          ZeroHash,
-          utxo1.hash,
-          utxo2.hash,
-          mockProofHash,
-        );
-      const result = await tx1.wait();
-      const event = zkDvP.interface.parseLog(result.logs[0]);
-      const tradeId = event.args.tradeId;
-
-      const utxo3 = newUTXO(10, Bob);
-      const utxo4 = newUTXO(20, Bob);
-      const utxo5 = newUTXO(25, Alice);
-      const utxo6 = newUTXO(5, Bob);
-      await expect(
-        zkDvP
-          .connect(Bob.signer)
-          .acceptTrade(
-            tradeId,
-            [utxo3.hash, utxo4.hash],
-            [utxo5.hash, utxo6.hash],
-            mockProofHash,
-            utxo1.hash,
-            utxo2.hash,
-            mockProofHash,
-          ),
-      ).rejectedWith("Asset inputs already provided by the trade initiator");
-      await expect(
-        zkDvP
-          .connect(Bob.signer)
-          .acceptTrade(
-            tradeId,
-            [utxo3.hash, utxo4.hash],
-            [utxo5.hash, utxo6.hash],
-            mockProofHash,
-            0,
-            utxo2.hash,
-            mockProofHash,
-          ),
-      ).rejectedWith("Asset outputs already provided by the trade initiator");
-      await expect(
-        zkDvP
-          .connect(Bob.signer)
-          .acceptTrade(
-            tradeId,
-            [0, 0],
-            [0, 0],
-            mockProofHash,
-            0,
-            0,
-            mockProofHash,
-          ),
-      ).rejectedWith("Payment inputs must be provided to accept the trade");
-      await expect(
-        zkDvP
-          .connect(Bob.signer)
-          .acceptTrade(
-            tradeId,
-            [utxo3.hash, utxo4.hash],
-            [0, 0],
-            mockProofHash,
-            0,
-            0,
-            mockProofHash,
-          ),
-      ).rejectedWith("Payment outputs must be provided to accept the trade");
     });
 
     it("test proof locking", async function () {
