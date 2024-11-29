@@ -21,7 +21,7 @@ forge init my-project --template settlemint/solidity-zeto
 Or if you want to use this set as a dependency of your own,
 
 ```shell
-bun install @settlemint/solidity-zeto
+npm install @settlemint/solidity-zeto
 ```
 
 ## DX: Foundry & Hardhat hybrid

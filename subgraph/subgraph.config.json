@@ -4,19 +4,19 @@
   "datasources": [
     {
       "name": "ZetoAnonContract",
-      "address": "0x-your-address-here",
+      "address": "0x0000000000000000000000000000000000000000",
       "startBlock": 1,
       "module": ["zetoanon"]
     },
     {
       "name": "zkDvPContract",
-      "address":"0x-your-address-here",
+      "address": "0x0000000000000000000000000000000000000000",
       "startBlock": 1,                    
       "module": ["zkdvp"]              
     },
     {
       "name": "ZetoAnonEncContract",
-      "address": "0x-your-address-here",
+      "address": "0x0000000000000000000000000000000000000000",
       "startBlock": 1,
       "module": ["zetoanonenc"]
     }

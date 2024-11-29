@@ -37,8 +37,12 @@ import {
   prepareNullifierWithdrawProof,
 } from "./utils";
 import { deployZeto } from "./lib/deploy";
+import { decompressFiles } from "../scripts/decompress";
 
 describe("Zeto based fungible token with anonymity, KYC, using nullifiers without encryption", function () {
+  before(async function() {
+    await decompressFiles();
+  });
   let deployer: Signer;
   let Alice: User;
   let Bob: User;

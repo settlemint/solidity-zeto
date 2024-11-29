@@ -36,11 +36,15 @@ import {
 } from "./utils";
 import { Zeto_Anon } from "../typechain-types";
 import { deployZeto } from "./lib/deploy";
+import { decompressFiles } from "../scripts/decompress";
 
 const ZERO_PUBKEY = [0, 0];
 const poseidonHash = Poseidon.poseidon4;
 
 describe("Zeto based fungible token with anonymity without encryption or nullifier", function () {
+  before(async function() {
+    await decompressFiles();
+  });
   let deployer: Signer;
   let Alice: User;
   let Bob: User;
