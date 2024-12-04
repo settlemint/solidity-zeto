@@ -21,7 +21,7 @@
     "chai": "4.5.0",
     "circom_tester": "0.0.20",
     "circomlibjs": "0.1.7",
-    "mocha": "10.8.2",
+    "mocha": "11.0.1",
     "prettier": "3.4.2",
     "snarkjs": "0.7.5"
   }
