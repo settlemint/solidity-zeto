@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "ethers": "6.13.5",
-    "maci-crypto": "1.2.5",
+    "maci-crypto": "2.5.0",
     "poseidon-lite": "0.3.0"
   },
   "devDependencies": {
