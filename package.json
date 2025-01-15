@@ -64,7 +64,7 @@
     "@nomicfoundation/hardhat-ethers": "3.0.8",
     "@nomicfoundation/hardhat-toolbox": "5.0.0",
     "@openzeppelin/hardhat-upgrades": "3.9.0",
-    "@settlemint/sdk-cli": "1.0.0"
+    "@settlemint/sdk-cli": "1.0.2"
   },
   "trustedDependencies": [
     "blake-hash",
