@@ -38,7 +38,7 @@
     "@amxx/graphprotocol-utils": "1.2.0",
     "@graphprotocol/graph-cli": "0.97.1",
     "@graphprotocol/graph-ts": "0.38.1",
-    "@iden3/contracts": "2.5.0",
+    "@iden3/contracts": "3.1.0",
     "@nomicfoundation/hardhat-foundry": "1.1.4",
     "@nomicfoundation/hardhat-ignition-viem": "0.15.11",
     "@nomicfoundation/hardhat-toolbox-viem": "3.0.0",
