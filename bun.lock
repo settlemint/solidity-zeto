@@ -6,7 +6,7 @@
         "@amxx/graphprotocol-utils": "1.2.0",
         "@graphprotocol/graph-cli": "0.97.1",
         "@graphprotocol/graph-ts": "0.38.1",
-        "@iden3/contracts": "2.5.0",
+        "@iden3/contracts": "3.1.0",
         "@nomicfoundation/hardhat-foundry": "1.1.4",
         "@nomicfoundation/hardhat-ignition-viem": "0.15.12",
         "@nomicfoundation/hardhat-toolbox-viem": "3.0.0",
@@ -197,7 +197,7 @@
 
     "@iden3/binfileutils": ["@iden3/binfileutils@0.0.12", "", { "dependencies": { "fastfile": "0.0.20", "ffjavascript": "^0.3.0" } }, "sha512-naAmzuDufRIcoNfQ1d99d7hGHufLA3wZSibtr4dMe6ZeiOPV1KwOZWTJ1YVz4HbaWlpDuzVU72dS4ATQS4PXBQ=="],
 
-    "@iden3/contracts": ["@iden3/contracts@2.5.0", "", { "dependencies": { "@openzeppelin/contracts": "^5.0.2", "@openzeppelin/contracts-upgradeable": "^5.0.2" } }, "sha512-AsD3W7nqLLGOAxOpR8dAwL3QOo0f+Sr3inBRswhAkXUFIs4cIdZXoBXwsllK8CV5PtnvpxUEB9XhVEj5NXyABA=="],
+    "@iden3/contracts": ["@iden3/contracts@3.1.0", "", { "dependencies": { "@openzeppelin/contracts": "^5.2.0", "@openzeppelin/contracts-upgradeable": "^5.2.0" } }, "sha512-OATT7r+sG+zX0KugbbnlJwg1BF/nNo+p7svz2Pq8V+40DYWNci4BHau640kOh+LkA65ugNqSQwCMQfG7s9/VWA=="],
 
     "@iden3/js-crypto": ["@iden3/js-crypto@1.1.0", "", {}, "sha512-MbL7OpOxBoCybAPoorxrp+fwjDVESyDe6giIWxErjEIJy0Q2n1DU4VmKh4vDoCyhJx/RdVgT8Dkb59lKwISqsw=="],
 
@@ -1850,10 +1850,6 @@
     "@float-capital/float-subgraph-uncrashable/graphql": ["graphql@16.10.0", "", {}, "sha512-AjqGKbDGUFRKIRCP9tCKiIGHyriz2oHEbPIbEtcSLSs4YjReZOIPQQWek4+6hjw62H9QShXHyaGivGiYVLeYFQ=="],
 
     "@graphprotocol/graph-ts/assemblyscript": ["assemblyscript@0.27.31", "", { "dependencies": { "binaryen": "116.0.0-nightly.20240114", "long": "^5.2.1" }, "bin": { "asc": "bin/asc.js", "asinit": "bin/asinit.js" } }, "sha512-Ra8kiGhgJQGZcBxjtMcyVRxOEJZX64kd+XGpjWzjcjgxWJVv+CAQO0aDBk4GQVhjYbOkATarC83mHjAVGtwPBQ=="],
-
-    "@iden3/contracts/@openzeppelin/contracts": ["@openzeppelin/contracts@5.1.0", "", {}, "sha512-p1ULhl7BXzjjbha5aqst+QMLY+4/LCWADXOCsmLHRM77AqiPjnd9vvUN9sosUfhL9JGKpZ0TjEGxgvnizmWGSA=="],
-
-    "@iden3/contracts/@openzeppelin/contracts-upgradeable": ["@openzeppelin/contracts-upgradeable@5.1.0", "", { "peerDependencies": { "@openzeppelin/contracts": "5.1.0" } }, "sha512-AIElwP5Ck+cslNE+Hkemf5SxjJoF4wBvvjxc27Rp+9jaPs/CLIaUBMYe1FNzhdiN0cYuwGRmYaRHmmntuiju4Q=="],
 
     "@inquirer/core/signal-exit": ["signal-exit@4.1.0", "", {}, "sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw=="],
 
