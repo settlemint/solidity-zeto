@@ -26,7 +26,7 @@
       "devDependencies": {
         "@nomicfoundation/hardhat-ethers": "3.0.9",
         "@nomicfoundation/hardhat-toolbox": "5.0.0",
-        "@openzeppelin/hardhat-upgrades": "3.9.0",
+        "@openzeppelin/hardhat-upgrades": "3.9.1",
       },
     },
   },
@@ -357,7 +357,7 @@
 
     "@openzeppelin/defender-sdk-network-client": ["@openzeppelin/defender-sdk-network-client@2.1.0", "", { "dependencies": { "@openzeppelin/defender-sdk-base-client": "^2.1.0", "axios": "^1.7.4", "lodash": "^4.17.21" } }, "sha512-ebtSmihHMlcjFTtXyB/IFr+CjCcjdW0nV+ijG24SNnRvOaHn2BNORs6CwhdEZc8ok9YHWnKouGKdfzmxX+mp/A=="],
 
-    "@openzeppelin/hardhat-upgrades": ["@openzeppelin/hardhat-upgrades@3.9.0", "", { "dependencies": { "@openzeppelin/defender-sdk-base-client": "^2.1.0", "@openzeppelin/defender-sdk-deploy-client": "^2.1.0", "@openzeppelin/defender-sdk-network-client": "^2.1.0", "@openzeppelin/upgrades-core": "^1.41.0", "chalk": "^4.1.0", "debug": "^4.1.1", "ethereumjs-util": "^7.1.5", "proper-lockfile": "^4.1.1", "undici": "^6.11.1" }, "peerDependencies": { "@nomicfoundation/hardhat-ethers": "^3.0.0", "@nomicfoundation/hardhat-verify": "^2.0.0", "ethers": "^6.6.0", "hardhat": "^2.0.2" }, "optionalPeers": ["@nomicfoundation/hardhat-verify"], "bin": { "migrate-oz-cli-project": "dist/scripts/migrate-oz-cli-project.js" } }, "sha512-7YYBSxRnO/X+tsQkVgtz3/YbwZuQPjbjQ3m0A/8+vgQzdPfulR93NaFKgZfMonnrriXb5O/ULjIDPI+8nuqtyQ=="],
+    "@openzeppelin/hardhat-upgrades": ["@openzeppelin/hardhat-upgrades@3.9.1", "", { "dependencies": { "@openzeppelin/defender-sdk-base-client": "^2.1.0", "@openzeppelin/defender-sdk-deploy-client": "^2.1.0", "@openzeppelin/defender-sdk-network-client": "^2.1.0", "@openzeppelin/upgrades-core": "^1.41.0", "chalk": "^4.1.0", "debug": "^4.1.1", "ethereumjs-util": "^7.1.5", "proper-lockfile": "^4.1.1", "undici": "^6.11.1" }, "peerDependencies": { "@nomicfoundation/hardhat-ethers": "^3.0.6", "@nomicfoundation/hardhat-verify": "^2.0.14", "ethers": "^6.6.0", "hardhat": "^2.24.1" }, "optionalPeers": ["@nomicfoundation/hardhat-verify"], "bin": { "migrate-oz-cli-project": "dist/scripts/migrate-oz-cli-project.js" } }, "sha512-pSDjlOnIpP+PqaJVe144dK6VVKZw2v6YQusyt0OOLiCsl+WUzfo4D0kylax7zjrOxqy41EK2ipQeIF4T+cCn2A=="],
 
     "@openzeppelin/subgraphs": ["@openzeppelin/subgraphs@0.1.8-5", "", { "dependencies": { "@amxx/graphprotocol-utils": "^1.1.0", "@openzeppelin/contracts": "^4.6.0" } }, "sha512-7k8x6A/lI33Dggah0S6Q+n348KaTBOUD7pK49K0lBSvCHZw5PqpMNZopfD/Kk+0nyFRzhAoPUU97RhmKz+YFJw=="],
 
@@ -1918,8 +1918,6 @@
     "@oclif/plugin-warn-if-update-available/ansis": ["ansis@3.4.0", "", {}, "sha512-zVESKSQhWaPhGaWiKj1k+UqvpC7vPBBgG3hjQEeIx2YGzylWt8qA3ziAzRuUtm0OnaGsZKjIvfl8D/sJTt/I0w=="],
 
     "@oclif/plugin-warn-if-update-available/debug": ["debug@4.4.0", "", { "dependencies": { "ms": "^2.1.3" } }, "sha512-6WTZ/IxCY/T6BALoZHaE4ctp9xm+Z5kY/pzYaCHRFeyVhojxlrm+46y68HA6hr0TcwEssoxNiDEUJQjfPZ/RYA=="],
-
-    "@openzeppelin/hardhat-upgrades/debug": ["debug@4.4.0", "", { "dependencies": { "ms": "^2.1.3" } }, "sha512-6WTZ/IxCY/T6BALoZHaE4ctp9xm+Z5kY/pzYaCHRFeyVhojxlrm+46y68HA6hr0TcwEssoxNiDEUJQjfPZ/RYA=="],
 
     "@openzeppelin/subgraphs/@openzeppelin/contracts": ["@openzeppelin/contracts@4.9.6", "", {}, "sha512-xSmezSupL+y9VkHZJGDoCBpmnB2ogM13ccaYDWqJTfS3dbuHkgjuwDFUmaFauBCboQMGB/S5UqUl2y54X99BmA=="],
 
