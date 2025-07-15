@@ -74,6 +74,7 @@ export async function prepareDepositProof(signer: User, output: UTXO) {
   );
 
   const encodedProof = encodeProof(proof);
+  
   return {
     outputCommitments,
     encodedProof,
