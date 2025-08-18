@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@iden3/js-merkletree": "1.5.0",
-    "chai": "5.2.1",
+    "chai": "5.3.1",
     "circom_tester": "0.0.24",
     "circomlibjs": "0.1.7",
     "mocha": "11.7.1",
