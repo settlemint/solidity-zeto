@@ -52,7 +52,7 @@
     "hardhat": "2.26.3",
     "poseidon-lite": "0.3.0",
     "snarkjs": "0.7.5",
-    "solhint": "6.0.0",
+    "solhint": "6.0.1",
     "zeto-js": "file:./zkp/js"
   },
   "overrides": {
