@@ -10,7 +10,7 @@
     "gen": "node gen.js"
   },
   "devDependencies": {
-    "axios": "1.12.1",
+    "axios": "1.12.2",
     "p-limit": "6.2.0",
     "snarkjs": "0.7.5",
     "yargs": "17.7.2"
