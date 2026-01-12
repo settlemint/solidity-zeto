@@ -23,6 +23,6 @@
     "circomlibjs": "0.1.7",
     "mocha": "11.7.5",
     "prettier": "3.7.4",
-    "snarkjs": "0.7.5"
+    "snarkjs": "0.7.6"
   }
 }

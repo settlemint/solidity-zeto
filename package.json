@@ -51,7 +51,7 @@
     "ffjavascript": "0.3.1",
     "hardhat": "2.27.1",
     "poseidon-lite": "0.3.0",
-    "snarkjs": "0.7.5",
+    "snarkjs": "0.7.6",
     "solhint": "6.0.1",
     "zeto-js": "file:./zkp/js"
   },
